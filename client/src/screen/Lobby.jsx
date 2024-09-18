@@ -18,7 +18,7 @@ function Lobby() {
     const handleJoinRoom = useCallback((data) => {
       const {email , roomId} = data 
       navigate(`/roomId/${roomId}`)  //redirect to room id 
-    },[navigate])
+    },[navigate]) 
 
     useEffect(() => {
       socket.on("room:join",  handleJoinRoom)
@@ -39,6 +39,7 @@ function Lobby() {
             <br />
             <br />
             <button>submit</button>
+            
         </form>
     </div>
   )

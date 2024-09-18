@@ -19,4 +19,25 @@ io.on("connection", (socket) => {
      console.log(data)
 
   })
+
+  socket.on("user:call", ({ to, offer }) => {
+    io.to(to).emit("incomming:call", { from: socket.id, offer });
+    console.log(`data has been send step 1`);
+  });
+   
+
+  socket.on("call:accepted", ({ to, ans }) => {
+    io.to(to).emit("call:accepted", { from: socket.id, ans });
+    console.log(`data has been send step 2`);
+  });
+
+  socket.on("peer:nego:needed", ({ to, offer }) => {
+    console.log(" data has been send step 3");
+    io.to(to).emit("peer:nego:needed", { from: socket.id, offer });
+  });
+
+  socket.on("peer:nego:done", ({ to, ans }) => {
+    console.log("peer:nego:done", ans);
+    io.to(to).emit("peer:nego:final", { from: socket.id, ans });
+  });
 });
